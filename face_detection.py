@@ -28,3 +28,17 @@ def print_face(image, face, is_masked):
         image = cv2.rectangle(image, (x - padding // 2, y - padding // 2), (x + w + padding // 2, y + h + padding // 2), RED)
 
     return image
+
+def crop_image(image, face):
+    """ Crop image in according to the face bounds plus additional padding.
+
+    Args:
+        image (int[]): Array of image pixels.
+        face (tuple): Bounds of face.
+
+    Returns:
+        int[]: Cropped image.
+    """
+    x, y, w, h = face
+    crop_img = image[y - padding // 2: y + h + padding // 2, x - padding // 2: x + h + padding // 2]
+    return crop_img
