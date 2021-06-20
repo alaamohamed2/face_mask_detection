@@ -42,12 +42,10 @@ def detect_faces(image, height, width):
 
 def print_face(image, face, is_masked):
     """ Prints face with color corresponding to if face is masked or not.
-
     Args:
         image (int[]): Array of image pixels.
         face (tuple): Bounds of face.
         is_masked (boolean): True if mask, false otherwise.
-
     Returns:
         int[]: Colored image of face with or without mask.
     """
@@ -58,7 +56,8 @@ def print_face(image, face, is_masked):
         image = cv2.rectangle(image, (x - padding // 2, y - padding // 2), (x + w + padding // 2, y + h + padding // 2), RED)
 
     return image
-
+ 
+    
 def crop_image(image, face):
     """ Crop image in according to the face bounds plus additional padding.
 
