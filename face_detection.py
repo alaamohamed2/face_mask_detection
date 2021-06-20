@@ -8,6 +8,36 @@ GREEN = (0, 255, 0)
 
 padding =  70
 
+def detect_faces(image, height, width):
+    """ Face detection using Mediapipe's face detection.
+
+    Args:
+        image (cv2): Input image to determine if faces are present.
+        height (int): Height of input frame
+        width (int): Width of input frame
+
+    Returns:
+        list: Tuple of faces detected (xmin, ymin, width, height)
+    """
+    mp_face_detection = mp.solutions.face_detection
+    faces = []
+
+    with mp_face_detection.FaceDetection(min_detection_confidence = 0.5) as face_detection:
+
+        results = face_detection.process(image)
+
+        if results.detections:
+            for detection in results.detections: 
+                bounding_box = detection.location_data.relative_bounding_box
+                # All values in detection normalized 0.0 -> 1.0
+                face = [
+                        int(bounding_box.xmin * width), 
+                        int(bounding_box.ymin * height), 
+                        int(bounding_box.width * width), 
+                        int(bounding_box.height * height)
+                        ]
+                faces.append(face)
+    return faces
 
 
 def print_face(image, face, is_masked):
